@@ -11,8 +11,8 @@ const booksRouter_1 = __importDefault(require("./routes/booksRouter"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
-app.use((0, cors_1.default)());
 app.use(express_1.default.json());
+app.use((0, cors_1.default)());
 try {
     (0, connectDB_1.default)(DB_URL);
 }

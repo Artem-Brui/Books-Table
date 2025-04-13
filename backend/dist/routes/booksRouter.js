@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const BooksGET_1 = __importDefault(require("../controllers/BooksGET"));
-const BooksPOST_1 = __importDefault(require("../controllers/BooksPOST"));
+const controllers_1 = require("../controllers/controllers");
 const booksRouter = express_1.default.Router();
-booksRouter.get('/', BooksGET_1.default);
-booksRouter.post('/add', BooksPOST_1.default);
+booksRouter.get('/', controllers_1.BooksGET);
+booksRouter.post('/add', controllers_1.BooksPOST);
+booksRouter.patch('/edit', controllers_1.BooksPATCH);
 exports.default = booksRouter;
