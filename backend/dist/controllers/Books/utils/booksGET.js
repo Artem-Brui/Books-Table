@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const Book_1 = __importDefault(require("../../../models/Book"));
 const booksGET = () => __awaiter(void 0, void 0, void 0, function* () {
-    const books = yield Book_1.default.find();
+    const books = yield Book_1.default.find().lean();
     if (!books) {
         return {
             success: false,

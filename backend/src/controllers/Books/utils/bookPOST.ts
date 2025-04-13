@@ -13,7 +13,8 @@ const bookPOST: RequestHandler = async (req: Request) => {
   }
 
   const { isbn: newBookISBN } = req.body as RequestBodyPOST;
-  const bookToFind = await Book.findOne({ isbn: newBookISBN });
+  const filter = { isbn: newBookISBN };
+  const bookToFind = await Book.findOne(filter);
 
   if (bookToFind?.isbn) {
     return {
@@ -30,7 +31,8 @@ const bookPOST: RequestHandler = async (req: Request) => {
     editedAt: null,
   };
 
-  const responsedBook = await Book.create(newBook);
+  await Book.create(newBook);
+  const responsedBook = await Book.findOne(filter).lean();
 
   return { success: true, status: 200, response: responsedBook };
 };

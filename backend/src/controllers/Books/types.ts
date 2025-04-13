@@ -7,10 +7,14 @@ export type Controller = (req: Request, res: Response) => void;
 export type ReqType = "GET" | "POST" | "PATCH" | "DELETE";
 
 export interface RequestBodyPOST {
-  title: string;
-  name: string;
-  category: string;
-  isbn: string;
+  title: string; // !!!! REQUIRED
+  name: string; // !!!! REQUIRED
+  category: string; // !!!! REQUIRED
+  isbn: string; // !!!! REQUIRED
+}
+
+export interface RequestBodyDELETE {
+  _id: string; // !!!! REQUIRED
 }
 
 export interface RequestBodyPATCH {
@@ -31,16 +35,10 @@ export type ResponseUNKNOWN = {
 export type ResponseGET = {
   success: boolean;
   status: number;
-  response: string | Array<InstanceType<typeof Book>>;
+  response: string | LeanDocument<Array<InstanceType<typeof Book>>>;
 };
 
-export type ResponsePOST = {
-  success: boolean;
-  status: number;
-  response: string | InstanceType<typeof Book>;
-};
-
-export type ResponsePATCH = {
+export type ResponseGENERAL = {
   success: boolean;
   status: number;
   response: string | LeanDocument<InstanceType<typeof Book>> | null;
@@ -50,5 +48,6 @@ export type RequestHandler =
   | null
   | (() => ResponseUNKNOWN)
   | (() => Promise<ResponseGET>)
-  | ((req: Request) => Promise<ResponsePOST>)
-  | ((req: Request) => Promise<ResponsePATCH>);
+  | ((req: Request) => Promise<ResponseGENERAL>)
+  | ((req: Request) => Promise<ResponseGENERAL>)
+  | ((req: Request) => Promise<ResponseGENERAL>);

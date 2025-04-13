@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useEffect, useReducer } from "react";
+import { DispatchContext } from "./DispatchContext";
+import reducer from "./reducer";
+import { GlobalStateContext, initialState } from "./GlobalStateContext";
+import { client } from "../api/fetch";
+import { BooksResponseGET } from "../api/types/Responses";
 
 interface Props {
   children: React.ReactNode;
 }
-const initialData = {};
-
-const Context = React.createContext(initialData);
-
-const data = { ...initialData };
 
 const MainContext: React.FC<Props> = ({ children }) => {
-  return <Context.Provider value={data}>{children}</Context.Provider>;
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    client.get<BooksResponseGET>("/books").then((data) => {
+      dispatch({ type: "booksLoad", payload: data.response });
+    });
+  }, [dispatch]);
+
+  return (
+    <DispatchContext value={dispatch}>
+      <GlobalStateContext.Provider value={state}>
+        {children}
+      </GlobalStateContext.Provider>
+    </DispatchContext>
+  );
 };
 
-export default MainContext
+export default MainContext;

@@ -2,7 +2,7 @@ import Book from "../../../models/Book";
 import { RequestHandler } from "../types";
 
 const booksGET: RequestHandler = async () => {
-  const books = await Book.find();
+  const books = await Book.find().lean();
 
   if (!books) {
     return {

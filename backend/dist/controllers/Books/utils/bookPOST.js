@@ -22,7 +22,8 @@ const bookPOST = (req) => __awaiter(void 0, void 0, void 0, function* () {
         };
     }
     const { isbn: newBookISBN } = req.body;
-    const bookToFind = yield Book_1.default.findOne({ isbn: newBookISBN });
+    const filter = { isbn: newBookISBN };
+    const bookToFind = yield Book_1.default.findOne(filter);
     if (bookToFind === null || bookToFind === void 0 ? void 0 : bookToFind.isbn) {
         return {
             success: false,
@@ -31,7 +32,8 @@ const bookPOST = (req) => __awaiter(void 0, void 0, void 0, function* () {
         };
     }
     const newBook = Object.assign(Object.assign({}, req.body), { isActive: true, createdAt: new Date().toISOString(), editedAt: null });
-    const responsedBook = yield Book_1.default.create(newBook);
+    yield Book_1.default.create(newBook);
+    const responsedBook = yield Book_1.default.findOne(filter).lean();
     return { success: true, status: 200, response: responsedBook };
 });
 exports.default = bookPOST;
