@@ -8,5 +8,6 @@ const controllers_1 = require("../controllers/controllers");
 const booksRouter = express_1.default.Router();
 booksRouter.get('/', controllers_1.BooksGET);
 booksRouter.post('/add', controllers_1.BooksPOST);
-booksRouter.patch('/edit', controllers_1.BooksPATCH);
+booksRouter.patch('/edit/:id', controllers_1.BooksPATCH);
+booksRouter.delete('/:id', controllers_1.BooksDELETE);
 exports.default = booksRouter;

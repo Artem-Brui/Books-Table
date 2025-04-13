@@ -17,6 +17,7 @@ const handleERORR_1 = __importDefault(require("./handleERORR"));
 const handleGET_1 = __importDefault(require("./handleGET"));
 const handlePOST_1 = __importDefault(require("./handlePOST"));
 const handlePATCH_1 = __importDefault(require("./handlePATCH"));
+const handleDELETE_1 = __importDefault(require("./handleDELETE"));
 const handleRequest = (reqType, req, res) => __awaiter(void 0, void 0, void 0, function* () {
     let requestHandler = null;
     switch (reqType) {
@@ -28,6 +29,9 @@ const handleRequest = (reqType, req, res) => __awaiter(void 0, void 0, void 0, f
             break;
         case "PATCH":
             requestHandler = handlePATCH_1.default;
+            break;
+        case "DELETE":
+            requestHandler = handleDELETE_1.default;
             break;
         default:
             requestHandler = () => ({

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import Book from "../models/Book";
-import BookType from "../types/BookType";
 import { LeanDocument } from "mongoose";
 
 export type Controller = (req: Request, res: Response) => void;

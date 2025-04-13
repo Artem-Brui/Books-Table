@@ -1,7 +1,6 @@
 import { Request } from "express";
 import Book from "../../models/Book";
-import BookType from "../../types/BookType";
-import { RequestBodyPATCH, RequestHandler } from "../types";
+import { RequestHandler } from "../types";
 
 const handlePATCH: RequestHandler = async (req: Request) => {
   if (!req.body) {
@@ -12,24 +11,33 @@ const handlePATCH: RequestHandler = async (req: Request) => {
     };
   }
 
-  const { _id: BookForUpdateID } = req.body as RequestBodyPATCH;
-  const bookToFind = await Book.findOne({ _id: BookForUpdateID }).lean();
-
-  if (!bookToFind?._id) {
+  if (!req.params.isbn) {
     return {
       success: false,
       status: 500,
-      response: `Book with ID(${BookForUpdateID}) don't exist in a base..`,
+      response: "Book ISBN for updating is not defined...",
     };
   }
 
-  const filter = { _id: BookForUpdateID };
-  const updating = {
+  const bookForUpdateISBN = req.params.isbn;
+  const filter = { isbn: bookForUpdateISBN };
+  const bookToFind = await Book.findOne(filter).lean();
+
+  if (!bookToFind?.isbn) {
+    return {
+      success: false,
+      status: 500,
+      response: `Book with ISBN(${bookForUpdateISBN}) don't exist in a base..`,
+    };
+  }
+
+  const updatings = {
     ...req.body,
     editedAt: new Date().toISOString(),
   }
 
-  await Book.findOneAndUpdate(filter, updating);
+  await Book.findOneAndUpdate(filter, updatings);
+
   const responsedBook = await Book.findOne(filter).lean();
 
   return { success: true, status: 200, response: responsedBook };

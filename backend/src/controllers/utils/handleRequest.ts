@@ -4,6 +4,7 @@ import handleERORR from "./handleERORR";
 import handleGET from "./handleGET";
 import handlePOST from "./handlePOST";
 import handlePATCH from "./handlePATCH";
+import handleDELETE from "./handleDELETE";
 
 export const handleRequest = async (
   reqType: ReqType,
@@ -21,6 +22,9 @@ export const handleRequest = async (
       break;
     case "PATCH":
       requestHandler = handlePATCH;
+      break;
+    case "DELETE":
+      requestHandler = handleDELETE;
       break;
     default:
       requestHandler = () => ({

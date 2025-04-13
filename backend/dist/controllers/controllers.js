@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BooksPATCH = exports.BooksPOST = exports.BooksGET = void 0;
+exports.BooksDELETE = exports.BooksPATCH = exports.BooksPOST = exports.BooksGET = void 0;
 const handleRequest_1 = require("./utils/handleRequest");
 const BooksGET = (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield (0, handleRequest_1.handleRequest)("GET", req, res); });
 exports.BooksGET = BooksGET;
@@ -17,3 +17,5 @@ const BooksPOST = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.BooksPOST = BooksPOST;
 const BooksPATCH = (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield (0, handleRequest_1.handleRequest)("PATCH", req, res); });
 exports.BooksPATCH = BooksPATCH;
+const BooksDELETE = (req, res) => __awaiter(void 0, void 0, void 0, function* () { return yield (0, handleRequest_1.handleRequest)("DELETE", req, res); });
+exports.BooksDELETE = BooksDELETE;

@@ -13,34 +13,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const Book_1 = __importDefault(require("../../models/Book"));
-const handlePATCH = (req) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.body) {
+const handleDELETE = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.params.id) {
         return {
             success: false,
             status: 500,
-            response: "Request body is not defined...",
+            response: "Book ID for deleting is not defined...",
         };
     }
-    if (!req.params.isbn) {
-        return {
-            success: false,
-            status: 500,
-            response: "Book ISBN for updating is not defined...",
-        };
-    }
-    const bookForUpdateISBN = req.params.isbn;
-    const filter = { isbn: bookForUpdateISBN };
+    const bookForDeletingID = req.params.id;
+    const filter = { _id: bookForDeletingID };
     const bookToFind = yield Book_1.default.findOne(filter).lean();
-    if (!(bookToFind === null || bookToFind === void 0 ? void 0 : bookToFind.isbn)) {
+    if (!(bookToFind === null || bookToFind === void 0 ? void 0 : bookToFind._id)) {
         return {
             success: false,
             status: 500,
-            response: `Book with ISBN(${bookForUpdateISBN}) don't exist in a base..`,
+            response: `Book with ID(${bookForDeletingID}) don't exist in a base..`,
         };
     }
-    const updatings = Object.assign(Object.assign({}, req.body), { editedAt: new Date().toISOString() });
-    yield Book_1.default.findOneAndUpdate(filter, updatings);
-    const responsedBook = yield Book_1.default.findOne(filter).lean();
-    return { success: true, status: 200, response: responsedBook };
+    const deletedBook = yield Book_1.default.findOneAndDelete(filter).lean();
+    const isExist = yield Book_1.default.findOne(filter).lean();
+    return !isExist
+        ? { success: true, status: 200, response: deletedBook }
+        : { success: false, status: 500, response: "Something went wrong, book wasn't deleted" };
 });
-exports.default = handlePATCH;
+exports.default = handleDELETE;

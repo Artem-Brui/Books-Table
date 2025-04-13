@@ -9,3 +9,6 @@ export const BooksPOST: Controller = async (req, res) =>
 
 export const BooksPATCH: Controller = async (req, res) =>
   await handleRequest("PATCH", req, res);
+
+export const BooksDELETE: Controller = async (req, res) =>
+  await handleRequest("DELETE", req, res);
