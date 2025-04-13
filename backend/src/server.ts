@@ -1,16 +1,19 @@
-import express from 'express';
-import cors from 'cors';
-import 'dotenv/config';
-import connectDB from './database/connectDB';
-import booksRouter from './routes/booksRouter';
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
+import connectDB from "./database/connectDB";
+import booksRouter from "./routes/booksRouter";
+import { resetBooksInDB } from "./database/resetBooksInDB";
+import categoriesRouter from "./routes/categoriesRouter";
+import { seedCategories } from "./database/seedCategories";
 
 const app = express();
 
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
 
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
 try {
   connectDB(DB_URL);
@@ -18,9 +21,12 @@ try {
   console.error(err);
 }
 
-app.use('/books', booksRouter);
+app.use("/books", booksRouter);
+app.use("/categories", categoriesRouter);
+
+resetBooksInDB();
+// seedCategories();
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
-})
-
+});

@@ -1,9 +1,9 @@
 import { Request } from "express";
-import Book from "../../models/Book";
-import BookType from "../../types/BookType";
+import Book from "../../../models/Book";
+import BookType from "../../../types/BookType";
 import { RequestBodyPOST, RequestHandler } from "../types";
 
-const handlePOST: RequestHandler = async (req: Request) => {
+const bookPOST: RequestHandler = async (req: Request) => {
   if (!req.body) {
     return {
       success: false,
@@ -35,4 +35,4 @@ const handlePOST: RequestHandler = async (req: Request) => {
   return { success: true, status: 200, response: responsedBook };
 };
 
-export default handlePOST;
+export default bookPOST;

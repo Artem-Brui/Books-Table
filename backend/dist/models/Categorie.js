@@ -4,28 +4,32 @@ const mongoose_1 = require("mongoose");
 const bookSchema = new mongoose_1.Schema({
     title: {
         type: String,
+        default: true,
         require: true,
     },
     name: {
         type: String,
+        default: true,
         require: true,
     },
     category: {
         type: String,
+        default: true,
         require: true,
     },
     isbn: {
         type: String,
+        default: true,
         require: true,
     },
     createdAt: {
         type: Date,
-        default: new Date().toISOString(),
+        default: true,
         require: true,
     },
     editedAt: {
         type: Date || null,
-        default: null,
+        default: true,
         require: true,
     },
     isActive: {

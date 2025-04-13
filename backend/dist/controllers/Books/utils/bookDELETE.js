@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Book_1 = __importDefault(require("../../models/Book"));
-const resetDB_1 = require("../../database/resetDB");
-const handleDELETE = (req) => __awaiter(void 0, void 0, void 0, function* () {
+const Book_1 = __importDefault(require("../../../models/Book"));
+const resetBooksInDB_1 = require("../../../database/resetBooksInDB");
+const bookDELETE = (req) => __awaiter(void 0, void 0, void 0, function* () {
     if (!req.params.id) {
         return {
             success: false,
@@ -36,10 +36,14 @@ const handleDELETE = (req) => __awaiter(void 0, void 0, void 0, function* () {
     const isExist = yield Book_1.default.findOne(filter).lean();
     const isBooksListExist = yield Book_1.default.find().lean();
     if (!isBooksListExist.length) {
-        (0, resetDB_1.resetDB)();
+        (0, resetBooksInDB_1.resetBooksInDB)();
     }
     return !isExist
         ? { success: true, status: 200, response: deletedBook }
-        : { success: false, status: 500, response: "Something went wrong, book wasn't deleted" };
+        : {
+            success: false,
+            status: 500,
+            response: "Something went wrong, book wasn't deleted",
+        };
 });
-exports.default = handleDELETE;
+exports.default = bookDELETE;

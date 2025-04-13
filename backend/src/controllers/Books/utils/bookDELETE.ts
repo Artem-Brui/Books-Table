@@ -1,8 +1,9 @@
 import { Request } from "express";
-import Book from "../../models/Book";
+import Book from "../../../models/Book";
 import { RequestHandler } from "../types";
+import { resetBooksInDB } from "../../../database/resetBooksInDB";
 
-const handleDELETE: RequestHandler = async (req: Request) => {
+const bookDELETE: RequestHandler = async (req: Request) => {
   if (!req.params.id) {
     return {
       success: false,
@@ -24,12 +25,20 @@ const handleDELETE: RequestHandler = async (req: Request) => {
   }
 
   const deletedBook = await Book.findOneAndDelete(filter).lean();
-
   const isExist = await Book.findOne(filter).lean();
+  const isBooksListExist = await Book.find().lean();
+
+  if (!isBooksListExist.length) {
+    resetBooksInDB();
+  }
 
   return !isExist
     ? { success: true, status: 200, response: deletedBook }
-    : { success: false, status: 500, response: "Something went wrong, book wasn't deleted" };
+    : {
+        success: false,
+        status: 500,
+        response: "Something went wrong, book wasn't deleted",
+      };
 };
 
-export default handleDELETE;
+export default bookDELETE;

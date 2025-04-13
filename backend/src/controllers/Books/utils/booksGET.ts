@@ -1,7 +1,7 @@
-import Book from "../../models/Book";
+import Book from "../../../models/Book";
 import { RequestHandler } from "../types";
 
-const handleGET: RequestHandler = async () => {
+const booksGET: RequestHandler = async () => {
   const books = await Book.find();
 
   if (!books) {
@@ -19,4 +19,4 @@ const handleGET: RequestHandler = async () => {
   return { success: true, status: 200, response: books };
 };
 
-export default handleGET;
+export default booksGET;

@@ -1,8 +1,8 @@
 import { Request } from "express";
-import Book from "../../models/Book";
+import Book from "../../../models/Book";
 import { RequestHandler } from "../types";
 
-const handlePATCH: RequestHandler = async (req: Request) => {
+const bookPATCH: RequestHandler = async (req: Request) => {
   if (!req.body) {
     return {
       success: false,
@@ -34,7 +34,7 @@ const handlePATCH: RequestHandler = async (req: Request) => {
   const updatings = {
     ...req.body,
     editedAt: new Date().toISOString(),
-  }
+  };
 
   await Book.findOneAndUpdate(filter, updatings);
 
@@ -43,4 +43,4 @@ const handlePATCH: RequestHandler = async (req: Request) => {
   return { success: true, status: 200, response: responsedBook };
 };
 
-export default handlePATCH;
+export default bookPATCH;

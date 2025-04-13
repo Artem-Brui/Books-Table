@@ -1,0 +1,46 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const Book_1 = __importDefault(require("../../../models/Book"));
+const handlePATCH = (req) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!req.body) {
+        return {
+            success: false,
+            status: 500,
+            response: "Request body is not defined...",
+        };
+    }
+    if (!req.params.isbn) {
+        return {
+            success: false,
+            status: 500,
+            response: "Book ISBN for updating is not defined...",
+        };
+    }
+    const bookForUpdateISBN = req.params.isbn;
+    const filter = { isbn: bookForUpdateISBN };
+    const bookToFind = yield Book_1.default.findOne(filter).lean();
+    if (!(bookToFind === null || bookToFind === void 0 ? void 0 : bookToFind.isbn)) {
+        return {
+            success: false,
+            status: 500,
+            response: `Book with ISBN(${bookForUpdateISBN}) don't exist in a base..`,
+        };
+    }
+    const updatings = Object.assign(Object.assign({}, req.body), { editedAt: new Date().toISOString() });
+    yield Book_1.default.findOneAndUpdate(filter, updatings);
+    const responsedBook = yield Book_1.default.findOne(filter).lean();
+    return { success: true, status: 200, response: responsedBook };
+});
+exports.default = handlePATCH;

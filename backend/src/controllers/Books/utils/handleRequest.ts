@@ -1,10 +1,10 @@
 import { ReqType, RequestHandler } from "../types";
 import { Request, Response } from "express";
 import handleERORR from "./handleERORR";
-import handleGET from "./handleGET";
-import handlePOST from "./handlePOST";
-import handlePATCH from "./handlePATCH";
-import handleDELETE from "./handleDELETE";
+import booksGET from "./booksGET";
+import bookPOST from "./bookPOST";
+import bookPATCH from "./bookPATCH";
+import bookDELETE from "./bookDELETE";
 
 export const handleRequest = async (
   reqType: ReqType,
@@ -15,22 +15,22 @@ export const handleRequest = async (
 
   switch (reqType) {
     case "GET":
-      requestHandler = handleGET;
+      requestHandler = booksGET;
       break;
     case "POST":
-      requestHandler = handlePOST;
+      requestHandler = bookPOST;
       break;
     case "PATCH":
-      requestHandler = handlePATCH;
+      requestHandler = bookPATCH;
       break;
     case "DELETE":
-      requestHandler = handleDELETE;
+      requestHandler = bookDELETE;
       break;
     default:
       requestHandler = () => ({
-        success: false, 
-        status: 500, 
-        response: "Request type is not defined..."
+        success: false,
+        status: 500,
+        response: "Request type is not defined...",
       });
       break;
   }

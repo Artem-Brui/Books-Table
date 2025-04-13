@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Book from "../models/Book";
+import Book from "../../models/Book";
 import { LeanDocument } from "mongoose";
 
 export type Controller = (req: Request, res: Response) => void;
@@ -13,7 +13,7 @@ export interface RequestBodyPOST {
   isbn: string;
 }
 
-export interface RequestBodyPATCH  {
+export interface RequestBodyPATCH {
   _id: string; // !!!! REQUIRED
   title?: string;
   name?: string;
@@ -37,13 +37,13 @@ export type ResponseGET = {
 export type ResponsePOST = {
   success: boolean;
   status: number;
-  response: string | InstanceType<typeof Book> ;
+  response: string | InstanceType<typeof Book>;
 };
 
 export type ResponsePATCH = {
   success: boolean;
   status: number;
-  response: string | LeanDocument<InstanceType<typeof Book>> | null ;
+  response: string | LeanDocument<InstanceType<typeof Book>> | null;
 };
 
 export type RequestHandler =

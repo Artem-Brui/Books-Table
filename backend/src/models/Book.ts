@@ -3,32 +3,28 @@ import { model, Schema } from "mongoose";
 const bookSchema = new Schema({
   title: {
     type: String,
-    default: true,
     require: true,
   },
   name: {
     type: String,
-    default: true,
     require: true,
   },
   category: {
     type: String,
-    default: true,
     require: true,
   },
   isbn: {
     type: String,
-    default: true,
     require: true,
   },
   createdAt: {
     type: Date,
-    default: true,
+    default: new Date().toISOString(),
     require: true,
   },
   editedAt: {
     type: Date || null,
-    default: true,
+    default: null,
     require: true,
   },
   isActive: {
