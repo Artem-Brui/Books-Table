@@ -5,7 +5,6 @@ import connectDB from "./database/connectDB";
 import booksRouter from "./routes/booksRouter";
 import { resetBooksInDB } from "./database/resetBooksInDB";
 import categoriesRouter from "./routes/categoriesRouter";
-import { seedCategories } from "./database/seedCategories";
 
 const app = express();
 

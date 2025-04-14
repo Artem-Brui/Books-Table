@@ -19,12 +19,11 @@ const bookSchema = new mongoose_1.Schema({
         require: true,
     },
     createdAt: {
-        type: Date,
-        default: new Date().toISOString(),
+        type: String,
         require: true,
     },
     editedAt: {
-        type: Date || null,
+        type: String || null,
         default: null,
         require: true,
     },
