@@ -1,13 +1,14 @@
 import Book from "../../types/Book";
+import Category from "../../types/Category";
 
-export interface BooksResponseGET {
+export interface CategoriesResponseGET {
   success: boolean;
   status: number;
-  response: string | Book[];
+  response: string | Category[];
 }
 
 export type BooksResponseGENERAL = {
   success: boolean;
   status: number;
-  response: string | Book;
+  response: string | Book[];
 }

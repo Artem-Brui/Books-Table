@@ -1,9 +1,10 @@
 import { Request } from "express";
 import Book from "../../../models/Book";
 import BookType from "../../../types/BookType";
-import { RequestBodyPOST, RequestHandler } from "../types";
+import { RequestBodyPOST, RequestHandlerBooks } from "../types";
+import { LeanDocument } from "mongoose";
 
-const bookPOST: RequestHandler = async (req: Request) => {
+const bookPOST: RequestHandlerBooks = async (req: Request) => {
   if (!req.body) {
     return {
       success: false,
@@ -32,7 +33,7 @@ const bookPOST: RequestHandler = async (req: Request) => {
   };
 
   await Book.create(newBook);
-  const responsedBooks = await Book.find();
+  const responsedBooks: LeanDocument<BookType>[] = await Book.find().lean();
 
   return { success: true, status: 200, response: responsedBooks };
 };

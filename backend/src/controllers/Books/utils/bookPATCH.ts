@@ -1,9 +1,9 @@
 import { Request } from "express";
 import Book from "../../../models/Book";
-import { RequestHandlerPATCH } from "../types";
+import { RequestHandlerBooks } from "../types";
 import BookType from "../../../types/BookType";
 
-const bookPATCH: RequestHandlerPATCH = async (req: Request) => {
+const bookPATCH: RequestHandlerBooks = async (req: Request) => {
   if (!req.body) {
     return {
       success: false,
@@ -38,9 +38,9 @@ const bookPATCH: RequestHandlerPATCH = async (req: Request) => {
   };
   
   await Book.findOneAndUpdate(filter, updatings);
-  const updatedBook: BookType | null = await Book.findOne(filter);
+  const updatedBooks: BookType[] | null = await Book.find();
 
-  return { success: true, status: 200, response: updatedBook };
+  return { success: true, status: 200, response: updatedBooks };
 };
 
 export default bookPATCH;

@@ -8,6 +8,5 @@ export type ActionTypes =
 
 export type Action =
   | { type: 'updateBooksList', payload: Book[] | string }
-  | { type: 'switchFilter', payload: FilterValue }
-  | { type: 'bookAdd', payload: Book | string };
+  | { type: 'switchFilter', payload: FilterValue };
 

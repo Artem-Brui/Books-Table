@@ -8,9 +8,11 @@ const PageHeading: FC = () => {
   const pageName = pathname.split('/')[1];
   const capitalisedPageName = pageName[0].toUpperCase() + pageName.slice(1)
 
+  const heading = pathname.includes('dashboard') ? capitalisedPageName : `${capitalisedPageName} Book`
+
   return (
     <h2 className={classNames("is-size-1", "has-text-weight-bold", "pb-4")}>
-      {capitalisedPageName}
+      {heading}
     </h2>
   );
 };

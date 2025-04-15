@@ -1,8 +1,13 @@
 import React from "react";
 import PageHeading from "./components/PageHeading";
 import Filter from "./components/Filter";
+import NavigateButton from "./components/NavigationButton";
+import { useLocation } from "react-router-dom";
 
 const Header: React.FC = () => {
+  const { pathname } = useLocation();
+  const isDashboard = pathname.includes('dashboard');
+  
   return (
     <header
       className="is-flex
@@ -11,10 +16,9 @@ const Header: React.FC = () => {
           is-justify-content-center
           p-2"
     >
-      {/* <NavigateButton buttonText="Add New Book" direction="/form" /> */}
-
+      <NavigateButton />
       <PageHeading />
-      <Filter />
+      {isDashboard && <Filter />}
     </header>
   );
 };

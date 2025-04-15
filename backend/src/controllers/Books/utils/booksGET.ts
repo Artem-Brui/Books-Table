@@ -1,8 +1,10 @@
+import { LeanDocument } from "mongoose";
 import Book from "../../../models/Book";
-import { RequestHandler } from "../types";
+import { RequestHandlerBooks } from "../types";
+import BookType from "../../../types/BookType";
 
-const booksGET: RequestHandler = async () => {
-  const books = await Book.find().lean();
+const booksGET: RequestHandlerBooks = async () => {
+  const books: LeanDocument<BookType>[] = await Book.find().lean();
 
   if (!books) {
     return {

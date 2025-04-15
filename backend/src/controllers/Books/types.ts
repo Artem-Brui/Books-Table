@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import BookType from "../../types/BookType";
+import CategoryType from "../../types/CategoryType";
 
 export type Controller = (req: Request, res: Response) => void;
 
@@ -31,22 +32,24 @@ export type ResponseUNKNOWN = {
   response: string;
 };
 
-export type ResponseGET = {
+export type ResponseBooksGET = {
   success: boolean;
   status: number;
   response: string | BookType[];
 };
 
-export type ResponseGENERAL = {
+export type ResponseCategoriesGET = {
   success: boolean;
   status: number;
-  response: string | BookType | null;
+  response: string | CategoryType [];
 };
 
-export type RequestHandler =
-  | null
-  | (() => ResponseUNKNOWN)
-  | (() => Promise<ResponseGET>)
-  | ((req: Request) => Promise<ResponseGENERAL>);
+export type ResponseBooks = {
+  success: boolean;
+  status: number;
+  response: string | BookType[] | null;
+};
 
-export type RequestHandlerPATCH = (req: Request) => Promise<ResponseGENERAL>;
+export type RequestHandlerBooks =
+  | (() => Promise<ResponseBooks>)
+  | ((req: Request) => Promise<ResponseBooks>);

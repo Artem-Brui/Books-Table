@@ -33,7 +33,7 @@ const bookPOST = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const newBook = Object.assign(Object.assign({}, req.body), { isActive: true, createdAt: new Date().toISOString(), editedAt: null });
     yield Book_1.default.create(newBook);
-    const responsedBooks = yield Book_1.default.find();
+    const responsedBooks = yield Book_1.default.find().lean();
     return { success: true, status: 200, response: responsedBooks };
 });
 exports.default = bookPOST;

@@ -40,7 +40,7 @@ const bookPATCH = (req) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const updatings = Object.assign(Object.assign({}, req.body), { editedAt: new Date().toISOString() });
     yield Book_1.default.findOneAndUpdate(filter, updatings);
-    const updatedBook = yield Book_1.default.findOne(filter);
-    return { success: true, status: 200, response: updatedBook };
+    const updatedBooks = yield Book_1.default.find();
+    return { success: true, status: 200, response: updatedBooks };
 });
 exports.default = bookPATCH;

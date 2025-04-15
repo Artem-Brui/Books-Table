@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import Book from "../../types/Book";
 import getDateToShow from "./utils/getDateToShow";
-import { useDispatch, useGlobalState } from "../../context/CustomHooks";
+import { useDispatch } from "../../context/CustomHooks";
 import {
   Arguments,
   handleActivationClick,
 } from "./utils/handleActivationClick";
 import classNames from "classnames";
+import { useNavigate } from "react-router-dom";
+import { client } from "../../api/fetch";
+import { BooksResponseGENERAL } from "../../api/types/Responses";
 
 interface Props {
   book: Book;
@@ -15,22 +18,42 @@ interface Props {
 const BooksTableRow: React.FC<Props> = React.memo(
   ({ book }) => {
     const [isModal, setIsModal] = useState(false);
+    const navigate = useNavigate();
 
     const { _id, title, name, category, isbn, isActive, createdAt, editedAt } =
       book;
     const dispatch = useDispatch();
-    const state = useGlobalState();
 
-    const changeArguments: Arguments = [_id, dispatch, state.booksList, setIsModal];
+    const changeArguments: Arguments = [
+      _id as string,
+      dispatch,
+      setIsModal,
+    ];
 
     const aligningStyle = { verticalAlign: "middle" };
     const buttonClassName = "button is-small";
 
+    const handleEditClick = () => {
+      navigate(`/edit/?book=${_id}`);
+    };
+
+    const handleDeleteClick = () => {
+      setIsModal(true);
+      client
+        .delete<BooksResponseGENERAL>(`/books/delete/${_id}`)
+        .then((data) => {
+          if (typeof data.response !== "string") {
+            const updatedBooks: Book[] = data.response;
+            dispatch({ type: "updateBooksList", payload: updatedBooks });
+          }
+        })
+        .finally(() => {
+          setIsModal(false);
+        });
+    };
+
     return (
-      <tr
-        key={title}
-        className={"has-text-centered"}
-      >
+      <tr key={title} className={"has-text-centered"}>
         <td style={aligningStyle}>{title}</td>
         <td style={aligningStyle}>{name}</td>
         <td style={aligningStyle}>{category}</td>
@@ -59,10 +82,16 @@ const BooksTableRow: React.FC<Props> = React.memo(
             </button>
           )}
           {isActive && (
-            <button className={`${buttonClassName} is-warning button-edit`} />
+            <button
+              onClick={handleEditClick}
+              className={`${buttonClassName} is-warning button-edit`}
+            />
           )}
           {!isActive && (
-            <button className={`${buttonClassName} is-danger button-delete`} />
+            <button
+              onClick={handleDeleteClick}
+              className={`${buttonClassName} is-danger button-delete`}
+            />
           )}
 
           <div

@@ -32,11 +32,12 @@ const bookDELETE = (req) => __awaiter(void 0, void 0, void 0, function* () {
             response: `Book with ID(${bookForDeletingID}) don't exist in a base..`,
         };
     }
-    const deletedBook = yield Book_1.default.findOneAndDelete(filter).lean();
+    yield Book_1.default.findOneAndDelete(filter).lean();
     const isBooksListEmpty = !(yield Book_1.default.find().lean()).length;
     if (isBooksListEmpty) {
         yield (0, resetBooksInDB_1.resetBooksInDB)();
     }
-    return { success: true, status: 200, response: deletedBook };
+    const updatedBooks = yield Book_1.default.find();
+    return { success: true, status: 200, response: updatedBooks };
 });
 exports.default = bookDELETE;
