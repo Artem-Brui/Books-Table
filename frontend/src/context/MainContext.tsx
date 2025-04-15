@@ -14,9 +14,10 @@ const MainContext: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     client.get<BooksResponseGET>("/books").then((data) => {
-      dispatch({ type: "booksLoad", payload: data.response });
+      dispatch({ type: "addBooksFromDB", payload: data.response });
     });
-  }, [dispatch]);
+    console.log('load');
+  }, []);
 
   return (
     <DispatchContext value={dispatch}>

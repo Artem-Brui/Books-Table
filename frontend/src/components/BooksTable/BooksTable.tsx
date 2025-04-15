@@ -1,13 +1,16 @@
 import React from "react";
-import { useGlobalState } from "../context/CustomHooks";
-import { Loader } from "./Loader";
-import BooksTableHeading from "./BooksTableHeading";
-import BooksTableRow from "./BooksTableRow";
+import { useGlobalState } from "../../context/CustomHooks";
+import BooksTableHeading from "../BooksTableHeading/BooksTableHeading";
+import BooksTableRow from "../BooksTableRow/BooksTableRow";
+import Loader from "../Loader";
+import getFiltredList from "../../context/utils.ts/getFiltredList";
 
 const BooksTable: React.FC = () => {
-  const { booksList, isLoading } = useGlobalState();
+  const state = useGlobalState();
 
-  if (isLoading) {
+  const filtredList = getFiltredList(state);
+
+  if (state.isLoading) {
     return <Loader />;
   }
 
@@ -17,11 +20,10 @@ const BooksTable: React.FC = () => {
       id="table-container"
     >
       <table className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth ">
-
         <BooksTableHeading />
 
         <tbody>
-          {booksList.map((book) => (
+          {filtredList.map((book) => (
             <BooksTableRow key={book._id} book={book} />
           ))}
         </tbody>

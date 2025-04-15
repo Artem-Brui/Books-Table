@@ -1,9 +1,8 @@
-
 import { createRoot } from "react-dom/client";
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import "./index.scss";
 import App from "./App.tsx";
-import Dashboard from "./components/BooksTable.tsx";
+import Dashboard from "./components/BooksTable/BooksTable.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <HashRouter>
