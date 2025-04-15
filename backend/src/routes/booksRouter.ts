@@ -10,7 +10,7 @@ const booksRouter = express.Router();
 
 booksRouter.get("/", BooksGET);
 booksRouter.post("/add", BooksPOST);
-booksRouter.patch("/edit/:id", BooksPATCH);
-booksRouter.delete("/:id", BooksDELETE);
+booksRouter.patch("/update/:id", BooksPATCH);
+booksRouter.delete("/delete/:id", BooksDELETE);
 
 export default booksRouter;

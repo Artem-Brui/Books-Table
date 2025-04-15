@@ -5,7 +5,8 @@ export interface BooksResponseGET {
   status: number;
   response: string | Book[];
 }
-export interface BooksResponseGENERAL {
+
+export type BooksResponseGENERAL = {
   success: boolean;
   status: number;
   response: string | Book;

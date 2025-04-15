@@ -23,7 +23,7 @@ try {
 app.use("/books", booksRouter);
 app.use("/categories", categoriesRouter);
 
-resetBooksInDB();
+// resetBooksInDB();
 // seedCategories();
 
 app.listen(PORT, () => {

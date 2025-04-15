@@ -16,7 +16,7 @@ const bookPOST: RequestHandler = async (req: Request) => {
   const filter = { isbn: newBookISBN };
   const bookToFind = await Book.findOne(filter);
 
-  if (bookToFind?.isbn) {
+  if (bookToFind) {
     return {
       success: false,
       status: 500,
@@ -32,9 +32,9 @@ const bookPOST: RequestHandler = async (req: Request) => {
   };
 
   await Book.create(newBook);
-  const responsedBook = await Book.findOne(filter).lean();
+  const responsedBooks = await Book.find();
 
-  return { success: true, status: 200, response: responsedBook };
+  return { success: true, status: 200, response: responsedBooks };
 };
 
 export default bookPOST;

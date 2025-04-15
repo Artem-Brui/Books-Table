@@ -1,4 +1,4 @@
-import { ReqBodyDELETE, ReqBodyPATCH, ReqBodyPOST } from "./types/Requests";
+import { ReqBodyPATCH, ReqBodyPOST } from "./types/Requests";
 
 type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'DELETE';
 
@@ -13,7 +13,7 @@ function wait(delay: number) {
 async function request<T>(
   url: string,
   method: RequestMethod = 'GET',
-  data?: null | ReqBodyPOST | ReqBodyPATCH | ReqBodyDELETE,
+  data?: null | ReqBodyPOST | ReqBodyPATCH,
 ): Promise<T> {
   const options: RequestInit = { method };
 

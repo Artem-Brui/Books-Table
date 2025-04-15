@@ -25,7 +25,7 @@ const bookDELETE = (req) => __awaiter(void 0, void 0, void 0, function* () {
     const bookForDeletingID = req.params.id;
     const filter = { _id: bookForDeletingID };
     const bookToFind = yield Book_1.default.findOne(filter).lean();
-    if (!(bookToFind === null || bookToFind === void 0 ? void 0 : bookToFind._id)) {
+    if (!bookToFind) {
         return {
             success: false,
             status: 500,
@@ -33,17 +33,10 @@ const bookDELETE = (req) => __awaiter(void 0, void 0, void 0, function* () {
         };
     }
     const deletedBook = yield Book_1.default.findOneAndDelete(filter).lean();
-    const isExist = yield Book_1.default.findOne(filter).lean();
-    const isBooksListExist = yield Book_1.default.find().lean();
-    if (!isBooksListExist.length) {
-        (0, resetBooksInDB_1.resetBooksInDB)();
+    const isBooksListEmpty = !(yield Book_1.default.find().lean()).length;
+    if (isBooksListEmpty) {
+        yield (0, resetBooksInDB_1.resetBooksInDB)();
     }
-    return !isExist
-        ? { success: true, status: 200, response: deletedBook }
-        : {
-            success: false,
-            status: 500,
-            response: "Something went wrong, book wasn't deleted",
-        };
+    return { success: true, status: 200, response: deletedBook };
 });
 exports.default = bookDELETE;

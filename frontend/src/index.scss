@@ -117,4 +117,14 @@ body {
   }
 }
 
+.loader {
+  border: 5px solid transparent;
+  border-top-color: #3273dc;
+  border-right-color: #3273dc;
+  width: 40px;
+  height: 40px;
+}
 
+.modal {
+  background-color: rgba($color: #6fa1f3, $alpha: .7);
+}

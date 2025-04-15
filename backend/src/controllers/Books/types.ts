@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
-import Book from "../../models/Book";
-import { LeanDocument } from "mongoose";
+import BookType from "../../types/BookType";
 
 export type Controller = (req: Request, res: Response) => void;
 
@@ -35,19 +34,19 @@ export type ResponseUNKNOWN = {
 export type ResponseGET = {
   success: boolean;
   status: number;
-  response: string | LeanDocument<Array<InstanceType<typeof Book>>>;
+  response: string | BookType[];
 };
 
 export type ResponseGENERAL = {
   success: boolean;
   status: number;
-  response: string | LeanDocument<InstanceType<typeof Book>> | null;
+  response: string | BookType | null;
 };
 
 export type RequestHandler =
   | null
   | (() => ResponseUNKNOWN)
   | (() => Promise<ResponseGET>)
-  | ((req: Request) => Promise<ResponseGENERAL>)
-  | ((req: Request) => Promise<ResponseGENERAL>)
   | ((req: Request) => Promise<ResponseGENERAL>);
+
+export type RequestHandlerPATCH = (req: Request) => Promise<ResponseGENERAL>;

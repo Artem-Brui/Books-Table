@@ -14,9 +14,8 @@ const MainContext: React.FC<Props> = ({ children }) => {
 
   useEffect(() => {
     client.get<BooksResponseGET>("/books").then((data) => {
-      dispatch({ type: "addBooksFromDB", payload: data.response });
+      dispatch({ type: "updateBooksList", payload: data.response });
     });
-    console.log('load');
   }, []);
 
   return (

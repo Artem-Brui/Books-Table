@@ -5,7 +5,7 @@ const reducer = (state: GlobalState, action: Action): GlobalState => {
   const { type, payload } = action;
 
   switch (type) {
-    case "addBooksFromDB":
+    case "updateBooksList":
       return typeof payload !== "string"
         ? {
             ...state,

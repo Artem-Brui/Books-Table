@@ -8,7 +8,6 @@ const cors_1 = __importDefault(require("cors"));
 require("dotenv/config");
 const connectDB_1 = __importDefault(require("./database/connectDB"));
 const booksRouter_1 = __importDefault(require("./routes/booksRouter"));
-const resetBooksInDB_1 = require("./database/resetBooksInDB");
 const categoriesRouter_1 = __importDefault(require("./routes/categoriesRouter"));
 const app = (0, express_1.default)();
 const PORT = process.env.PORT;
@@ -23,7 +22,7 @@ catch (err) {
 }
 app.use("/books", booksRouter_1.default);
 app.use("/categories", categoriesRouter_1.default);
-(0, resetBooksInDB_1.resetBooksInDB)();
+// resetBooksInDB();
 // seedCategories();
 app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);

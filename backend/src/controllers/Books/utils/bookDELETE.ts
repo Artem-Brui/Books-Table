@@ -2,6 +2,8 @@ import { Request } from "express";
 import Book from "../../../models/Book";
 import { RequestHandler } from "../types";
 import { resetBooksInDB } from "../../../database/resetBooksInDB";
+import BookType from "../../../types/BookType";
+import { LeanDocument } from "mongoose";
 
 const bookDELETE: RequestHandler = async (req: Request) => {
   if (!req.params.id) {
@@ -14,9 +16,11 @@ const bookDELETE: RequestHandler = async (req: Request) => {
 
   const bookForDeletingID = req.params.id;
   const filter = { _id: bookForDeletingID };
-  const bookToFind = await Book.findOne(filter).lean();
+  const bookToFind: LeanDocument<BookType> | null = await Book.findOne(
+    filter
+  ).lean();
 
-  if (!bookToFind?._id) {
+  if (!bookToFind) {
     return {
       success: false,
       status: 500,
@@ -24,21 +28,15 @@ const bookDELETE: RequestHandler = async (req: Request) => {
     };
   }
 
-  const deletedBook = await Book.findOneAndDelete(filter).lean();
-  const isExist = await Book.findOne(filter).lean();
-  const isBooksListExist = await Book.find().lean();
+  const deletedBook: BookType | null =
+    await Book.findOneAndDelete(filter).lean();
+  const isBooksListEmpty = !(await Book.find().lean()).length;
 
-  if (!isBooksListExist.length) {
-    resetBooksInDB();
+  if (isBooksListEmpty) {
+    await resetBooksInDB();
   }
 
-  return !isExist
-    ? { success: true, status: 200, response: deletedBook }
-    : {
-        success: false,
-        status: 500,
-        response: "Something went wrong, book wasn't deleted",
-      };
+  return { success: true, status: 200, response: deletedBook };
 };
 
 export default bookDELETE;

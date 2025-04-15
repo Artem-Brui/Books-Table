@@ -8,8 +8,6 @@ const Filter: React.FC = () => {
   const dispatch = useDispatch();
   const filtredList = getFiltredList(useGlobalState());
 
-  console.log(filter);
-
   const handleFilterValueChange = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch({ type: "switchFilter", payload: event.target.value as FilterValue })
   }, [dispatch]);

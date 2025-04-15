@@ -21,26 +21,26 @@ const bookPATCH = (req) => __awaiter(void 0, void 0, void 0, function* () {
             response: "Request body is not defined...",
         };
     }
-    if (!req.params.isbn) {
+    if (!req.params.id) {
         return {
             success: false,
             status: 500,
-            response: "Book ISBN for updating is not defined...",
+            response: "Book ID for updating is not defined...",
         };
     }
-    const bookForUpdateISBN = req.params.isbn;
-    const filter = { isbn: bookForUpdateISBN };
-    const bookToFind = yield Book_1.default.findOne(filter).lean();
-    if (!(bookToFind === null || bookToFind === void 0 ? void 0 : bookToFind.isbn)) {
+    const bookForUpdateID = req.params.id;
+    const filter = { _id: bookForUpdateID };
+    const bookToFind = yield Book_1.default.findOne(filter);
+    if (!bookToFind) {
         return {
             success: false,
             status: 500,
-            response: `Book with ISBN(${bookForUpdateISBN}) don't exist in a base..`,
+            response: `Book with ID(${bookForUpdateID}) don't exist in a base..`,
         };
     }
     const updatings = Object.assign(Object.assign({}, req.body), { editedAt: new Date().toISOString() });
     yield Book_1.default.findOneAndUpdate(filter, updatings);
-    const responsedBook = yield Book_1.default.findOne(filter).lean();
-    return { success: true, status: 200, response: responsedBook };
+    const updatedBook = yield Book_1.default.findOne(filter);
+    return { success: true, status: 200, response: updatedBook };
 });
 exports.default = bookPATCH;

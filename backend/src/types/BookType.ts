@@ -1,3 +1,5 @@
+import { ObjectId } from "mongoose";
+
 export default interface BookType {
   title: string;
   name: string;
@@ -6,6 +8,6 @@ export default interface BookType {
   createdAt: string;
   editedAt: null | string;
   isActive: boolean;
-  _id?: string;
+  _id?: ObjectId;
   __v?: number;
 }

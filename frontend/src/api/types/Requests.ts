@@ -5,15 +5,10 @@ export interface ReqBodyPOST {
   isbn: string; // !!!! REQUIRED
 }
 
-export interface ReqBodyDELETE {
-  _id: string; // !!!! REQUIRED
-}
-
 export interface ReqBodyPATCH {
-  _id: string; // !!!! REQUIRED
   title?: string;
   name?: string;
   category?: string;
   isbn?: string;
-  isActive?: string;
+  isActive?: boolean;
 }
