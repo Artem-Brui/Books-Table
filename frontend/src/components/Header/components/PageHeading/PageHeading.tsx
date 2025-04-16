@@ -6,7 +6,7 @@ const PageHeading: FC = () => {
   const { pathname } = useLocation();
 
   const pageName = pathname.split('/')[1];
-  const capitalisedPageName = pageName[0].toUpperCase() + pageName.slice(1)
+  const capitalisedPageName = pathname.includes('dashboard') ? pageName[0].toUpperCase() + pageName.slice(1) : '';
 
   const heading = pathname.includes('dashboard') ? capitalisedPageName : `${capitalisedPageName} Book`
 

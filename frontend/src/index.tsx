@@ -1,12 +1,12 @@
 import { createRoot } from "react-dom/client";
-import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import "./index.scss";
 import App from "./App.tsx";
 import Dashboard from "./components/BooksTable/BooksTable.tsx";
 import BookForm from "./components/BookForm/BookForm.tsx";
 
 createRoot(document.getElementById("root")!).render(
-  <HashRouter>
+  <Router>
     <Routes>
       <Route path="/" element={<App />}>
         <Route path="dashboard" element={<Dashboard />} />
@@ -15,5 +15,5 @@ createRoot(document.getElementById("root")!).render(
         <Route index element={<Navigate to="/dashboard" />} />
       </Route>
     </Routes>
-  </HashRouter>
+  </Router>
 );

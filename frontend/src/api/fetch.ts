@@ -2,7 +2,7 @@ import { ReqBodyPATCH, ReqBodyPOST } from "./types/Requests";
 
 type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE";
 
-const BASE_URL = "https://books-table-server.onrender.com";
+const BASE_URL = import.meta.env.VITE_SERVER_URL;
 
 function wait(delay: number) {
   return new Promise((resolve) => {
@@ -24,7 +24,7 @@ async function request<T>(
     };
   }
 
-  return wait(500)
+  return wait(200)
     .then(() => fetch(BASE_URL + url, options))
     .then((response) => {
       if (!response.ok) {
