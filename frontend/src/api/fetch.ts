@@ -2,7 +2,7 @@ import { ReqBodyPATCH, ReqBodyPOST } from "./types/Requests";
 
 type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE";
 
-const BASE_URL = "http://localhost:3003";
+const BASE_URL = "https://books-table-server.onrender.com";
 
 function wait(delay: number) {
   return new Promise((resolve) => {
