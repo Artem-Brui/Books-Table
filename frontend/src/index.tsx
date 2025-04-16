@@ -1,5 +1,5 @@
 import { createRoot } from "react-dom/client";
-import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import "./index.scss";
 import App from "./App.tsx";
 import Dashboard from "./components/BooksTable/BooksTable.tsx";
