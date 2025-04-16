@@ -32,9 +32,9 @@ A modern web application for managing and viewing book data.
 
 ### Frontend
 
-  - Built with Bulma CSS framework and custom styles for a modern look.
+  - Styled by Bulma CSS and custom styles.
   - Fully responsive and mobile-friendly interface.
-  - Efficient state handling using reducers for predictable state transitions.
+  - Efficient state handling using Reducers and Dispatch.
   - Universal function for handling API requests, supporting GET, POST, PATCH, and DELETE methods.
   - Error handling and loading states for a smooth user experience.
   - Clean and intuitive design with icon integration for enhanced UX.
@@ -55,10 +55,10 @@ A modern web application for managing and viewing book data.
 
 - React
 - TypeScript
-- Vite
+- SASS
 - React Router
 - Bulma CSS Framework and a few custom styles
-- State management using Reducer and Dispatch
+- Context API with Reducer and Dispatch
 - Universal function for API requests
 - Icon Library FontAwesome
 
