@@ -1,4 +1,4 @@
-import { ReqType, RequestHandler } from "../types";
+import { ReqType, RequestHandlerBooks } from "../types";
 import { Request, Response } from "express";
 import handleERORR from "./handleERORR";
 import booksGET from "./booksGET";
@@ -11,7 +11,7 @@ export const handleRequest = async (
   req: Request,
   res: Response
 ) => {
-  let requestHandler: RequestHandler = null;
+  let requestHandler: RequestHandlerBooks = null;
 
   switch (reqType) {
     case "GET":

@@ -27,7 +27,7 @@ export const seedBookToDB = async () => {
 
 let isIntervalSet = false;
 
-export const resetBooksInDB = async (date: Date) => {
+export const resetBooksInDB = async (date?: Date) => {
   if (isIntervalSet) {
     return;
   }

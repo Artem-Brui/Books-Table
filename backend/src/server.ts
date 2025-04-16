@@ -10,9 +10,13 @@ const app = express();
 
 const PORT = process.env.PORT;
 const DB_URL = process.env.DB_URL;
+const ClientURL = process.env.CLIENT_URL;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ClientURL,
+  credentials: true,
+}));
 
 try {
   connectDB(DB_URL);

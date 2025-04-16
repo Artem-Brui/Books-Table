@@ -51,5 +51,7 @@ export type ResponseBooks = {
 };
 
 export type RequestHandlerBooks =
+  | (null)
+  | (() => ResponseBooks)
   | (() => Promise<ResponseBooks>)
   | ((req: Request) => Promise<ResponseBooks>);

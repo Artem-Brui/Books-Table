@@ -1,7 +1,7 @@
 import { Request } from "express";
 import Book from "../../../models/Book";
 import { RequestHandlerBooks } from "../types";
-import { resetBooksInDB } from "../../../database/resetBooksInDB";
+import { seedBookToDB } from "../../../database/resetBooksInDB";
 import BookType from "../../../types/BookType";
 import { LeanDocument } from "mongoose";
 
@@ -33,7 +33,7 @@ const bookDELETE: RequestHandlerBooks = async (req: Request) => {
   const isBooksListEmpty = !(await Book.find().lean()).length;
 
   if (isBooksListEmpty) {
-    await resetBooksInDB();
+    await seedBookToDB();
   }
 
   const updatedBooks: BookType[] | null = await Book.find();

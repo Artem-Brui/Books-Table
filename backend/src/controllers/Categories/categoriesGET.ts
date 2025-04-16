@@ -5,23 +5,14 @@ const categoriesGET = async (req: Request, res: Response) => {
   try {
     const categories = await Category.find();
 
-    if (!categories) {
-      return {
-        success: false,
-        status: 500,
-        response: "Categories are not defined...",
-      };
-    }
-
-    if (!categories.length) {
-      return {
-        success: false,
-        status: 500,
-        response: "Categories list is empty...",
-      };
-    }
-
-    const response = { success: true, status: 200, response: categories }
+    const isError = !categories || !categories.length;
+    const success = categories && categories.length > 0;
+    const status = isError ? 500 : 200;
+    const response = !isError
+      ? { success, status, response: categories }
+      : !categories
+        ? { success, status, response: "Categories are not defined..." }
+        : { success, status, response: "Categories list is empty..." };
 
     res.status(response.status).json(response);
   } catch (err) {
