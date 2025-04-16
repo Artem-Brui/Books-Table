@@ -3,7 +3,7 @@ import { DispatchContext } from "./DispatchContext";
 import reducer from "./reducer";
 import { GlobalStateContext, initialState } from "./GlobalStateContext";
 import { client } from "../api/fetch";
-import { BooksResponseGET } from "../api/types/Responses";
+import { BooksResponseGENERAL } from "../api/types/Responses";
 
 interface Props {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ const MainContext: React.FC<Props> = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    client.get<BooksResponseGET>("/books").then((data) => {
+    client.get<BooksResponseGENERAL>("/books").then((data) => {
       dispatch({ type: "updateBooksList", payload: data.response });
     });
   }, []);
