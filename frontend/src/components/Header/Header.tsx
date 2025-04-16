@@ -6,15 +6,16 @@ import { useLocation } from "react-router-dom";
 
 const Header: React.FC = () => {
   const { pathname } = useLocation();
-  const isDashboard = pathname.includes('dashboard');
-  
+  const isDashboard = pathname.includes("dashboard");
+
   return (
     <header
+      style={{ width: "100%" }}
       className="is-flex
           is-flex-direction-column
           is-align-items-center
           is-justify-content-center
-          p-2"
+          p-2 mt-5"
     >
       <NavigateButton />
       <PageHeading />

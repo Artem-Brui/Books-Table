@@ -1,11 +1,11 @@
 import React, { FC, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import TitleInput from "./components/TitleInput";
-import { CheckerType } from "./types";
+import { CheckerType, FormDataType, SubmitArguments } from "./types";
 import { useDispatch, useGlobalState } from "../../context/CustomHooks";
 import Book from "../../types/Book";
-import { client } from "../../api/fetch";
-import { BooksResponseGENERAL } from "../../api/types/Responses";
+import ModalLoader from "../ModalLoader";
+import ButtonSubmit from "./components/ButtonSubmit";
 
 const BookForm: FC = React.memo(() => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const BookForm: FC = React.memo(() => {
     ? booksList.find((book) => book._id === updatedBookID)
     : null;
 
-  const initialFormData = {
+  const initialFormData: FormDataType = {
     title: bookForUpdate ? bookForUpdate.title : "",
     name: bookForUpdate ? bookForUpdate.name : "",
     category: bookForUpdate ? bookForUpdate.category : "",
@@ -28,6 +28,7 @@ const BookForm: FC = React.memo(() => {
   };
 
   const [formData, setFormData] = useState(initialFormData);
+  const [isModal, setIsModal] = useState(false);
 
   const [isSuccess, setIsSuccess] = useState<CheckerType>({
     title: isUpdateForm,
@@ -38,27 +39,21 @@ const BookForm: FC = React.memo(() => {
 
   const { title, name, category, isbn } = isSuccess;
   const isPossibleSubmit = title && name && category && isbn;
-
-  const handleSubmitClick = () => {
-    if (isPossibleSubmit) {
-      client
-        .patch<BooksResponseGENERAL>(`/books/update/${updatedBookID}`, formData)
-        .then(data => {
-          if (typeof data.response !== "string") {
-            const updatedBooks: Book[] = data.response;
-            dispatch({type: 'updateBooksList', payload: updatedBooks})
-          }
-        })
-        .finally(() => {
-          navigate("/dashboard");
-        });
-    }
-  };
+  const submitArguments: SubmitArguments = [
+    isUpdateForm,
+    updatedBookID,
+    isPossibleSubmit,
+    setIsModal,
+    formData,
+    dispatch,
+    navigate,
+  ];
 
   return (
     <div
       className="is-flex
       is-flex-direction-column
+      is-align-self-center
       mt-6
       form-container
       "
@@ -78,17 +73,11 @@ const BookForm: FC = React.memo(() => {
         }
       )}
 
-      <div className="field is-grouped is-align-self-center">
-        <div className="control">
-          <button
-            onClick={handleSubmitClick}
-            className="button is-link"
-            disabled={!isPossibleSubmit}
-          >
-            Submit
-          </button>
-        </div>
-      </div>
+      <ButtonSubmit
+        isPossibleSubmit={isPossibleSubmit}
+        submitArguments={submitArguments}
+      />
+      <ModalLoader isActive={isModal} />
     </div>
   );
 });

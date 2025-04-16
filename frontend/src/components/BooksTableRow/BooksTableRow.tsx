@@ -6,10 +6,10 @@ import {
   Arguments,
   handleActivationClick,
 } from "./utils/handleActivationClick";
-import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import { client } from "../../api/fetch";
 import { BooksResponseGENERAL } from "../../api/types/Responses";
+import ModalLoader from "../ModalLoader";
 
 interface Props {
   book: Book;
@@ -94,14 +94,7 @@ const BooksTableRow: React.FC<Props> = React.memo(
             />
           )}
 
-          <div
-            className={classNames("modal overlay", {
-              "is-active": isModal,
-            })}
-          >
-            <div className="modal-content" />
-            <div className="loader" />
-          </div>
+          <ModalLoader isActive={isModal} />
         </td>
       </tr>
     );

@@ -5,10 +5,10 @@ import Header from "./components/Header";
 
 const App = () => {
   return (
-    <MainContext>
-      <Header />
-      <Outlet />
-    </MainContext>
+      <MainContext>
+        <Header />
+        <Outlet />
+      </MainContext>
   );
 };
 
