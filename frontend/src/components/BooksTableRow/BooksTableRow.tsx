@@ -39,17 +39,17 @@ const BooksTableRow: React.FC<Props> = React.memo(
 
     const handleDeleteClick = () => {
       setIsModal(true);
+
       client
         .delete<BooksResponseGENERAL>(`/books/delete/${_id}`)
         .then((data) => {
           if (typeof data.response !== "string") {
             const updatedBooks: Book[] = data.response;
             dispatch({ type: "updateBooksList", payload: updatedBooks });
+            setIsModal(false);
+            dispatch({ type: "switchMessageType", payload: 'delete' });
           }
         })
-        .finally(() => {
-          setIsModal(false);
-        });
     };
 
     return (

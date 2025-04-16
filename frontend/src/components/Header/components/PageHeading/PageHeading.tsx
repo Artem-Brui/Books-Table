@@ -11,7 +11,7 @@ const PageHeading: FC = () => {
   const heading = pathname.includes('dashboard') ? capitalisedPageName : `${capitalisedPageName} Book`
 
   return (
-    <h2 className={classNames("is-size-1", "has-text-weight-bold", "pb-4")}>
+    <h2 className={classNames("is-size-1", "has-text-weight-bold", "pb-4 pt-4")}>
       {heading}
     </h2>
   );

@@ -3,6 +3,7 @@ import PageHeading from "./components/PageHeading";
 import Filter from "./components/Filter";
 import NavigateButton from "./components/NavigationButton";
 import { useLocation } from "react-router-dom";
+import Message from "../Message/Message";
 
 const Header: React.FC = () => {
   const { pathname } = useLocation();
@@ -17,6 +18,7 @@ const Header: React.FC = () => {
           is-justify-content-center
           p-2 mt-5"
     >
+      <Message />
       <NavigateButton />
       <PageHeading />
       {isDashboard && <Filter />}

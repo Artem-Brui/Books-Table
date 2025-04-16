@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.resetBooksInDB = void 0;
+exports.resetBooksInDB = exports.seedBookToDB = void 0;
 const Book_1 = __importDefault(require("../models/Book"));
 const books_1 = __importDefault(require("./data/books"));
 const seedBookToDB = () => __awaiter(void 0, void 0, void 0, function* () {
@@ -28,24 +28,33 @@ const seedBookToDB = () => __awaiter(void 0, void 0, void 0, function* () {
         console.error(err);
     }
 });
-const resetBooksInDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield seedBookToDB();
-        const booksReset = setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
+exports.seedBookToDB = seedBookToDB;
+let isIntervalSet = false;
+const resetBooksInDB = (date) => __awaiter(void 0, void 0, void 0, function* () {
+    if (isIntervalSet) {
+        return;
+    }
+    isIntervalSet = true;
+    const currentTime = new Date();
+    const nextMidnight = new Date(Date.UTC(currentTime.getFullYear(), currentTime.getMonth(), currentTime.getDate() + 1, 0, 0, 0));
+    const timeUntilMidnight = nextMidnight.getTime() - currentTime.getTime();
+    setTimeout(() => __awaiter(void 0, void 0, void 0, function* () {
+        try {
+            yield (0, exports.seedBookToDB)();
+            console.log("Books reset successfully at UTC midnight.");
+        }
+        catch (error) {
+            console.error("Error during midnight reset:", error);
+        }
+        setInterval(() => __awaiter(void 0, void 0, void 0, function* () {
             try {
-                yield seedBookToDB();
+                yield (0, exports.seedBookToDB)();
+                console.log("Books reset successfully as part of daily interval.");
             }
             catch (error) {
                 console.error("Scheduled seed failed:", error);
             }
         }), 1000 * 60 * 60 * 24);
-        // setTimeout(() => {
-        //   clearInterval(booksReset);
-        //   console.log("Stopped book seeding interval");
-        // }, 10000);
-    }
-    catch (error) {
-        console.error("Initial book seeding failed:", error);
-    }
+    }), timeUntilMidnight);
 });
 exports.resetBooksInDB = resetBooksInDB;

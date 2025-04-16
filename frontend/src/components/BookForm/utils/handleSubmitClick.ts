@@ -26,9 +26,9 @@ const handleSubmitClick = (...args: SubmitArguments) => {
             dispatch({ type: "updateBooksList", payload: updatedBooks });
             setIsModal(false);
             navigate("/dashboard");
+            dispatch({ type: "switchMessageType", payload: 'update' });
           }
         })
-        .finally(() => {});
     }
   } else {
     setIsModal(true);
@@ -41,9 +41,9 @@ const handleSubmitClick = (...args: SubmitArguments) => {
           dispatch({ type: "updateBooksList", payload: updatedBooks });
           setIsModal(false);
           navigate("/dashboard");
+          dispatch({ type: "switchMessageType", payload: 'create' });
         }
       })
-      .finally(() => {});
   }
 };
 

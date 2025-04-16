@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import TitleInput from "./components/TitleInput";
 import { CheckerType, FormDataType, SubmitArguments } from "./types";
@@ -7,7 +7,7 @@ import Book from "../../types/Book";
 import ModalLoader from "../ModalLoader";
 import ButtonSubmit from "./components/ButtonSubmit";
 
-const BookForm: FC = React.memo(() => {
+const BookForm: FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { booksList } = useGlobalState();
@@ -80,6 +80,6 @@ const BookForm: FC = React.memo(() => {
       <ModalLoader isActive={isModal} />
     </div>
   );
-});
+};
 
 export default BookForm;

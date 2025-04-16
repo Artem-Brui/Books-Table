@@ -18,6 +18,11 @@ const reducer = (state: GlobalState, action: Action): GlobalState => {
         ...state,
         filter: payload,
       };
+    case "switchMessageType":
+      return {
+        ...state,
+        messageType: payload,
+      };
     default:
       return { ...state };
   }

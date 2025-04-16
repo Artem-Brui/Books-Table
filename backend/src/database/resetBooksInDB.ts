@@ -2,7 +2,7 @@ import Book from "../models/Book";
 import BookType from "../types/BookType";
 import books from "./data/books";
 
-const seedBookToDB = async () => {
+export const seedBookToDB = async () => {
   try {
     await Book.deleteMany();
 
@@ -25,23 +25,44 @@ const seedBookToDB = async () => {
   }
 };
 
-export const resetBooksInDB = async () => {
-  try {
-    await seedBookToDB();
+let isIntervalSet = false;
 
-    const booksReset = setInterval(async () => {
+export const resetBooksInDB = async (date: Date) => {
+  if (isIntervalSet) {
+    return;
+  }
+
+  isIntervalSet = true;
+
+  const currentTime = new Date();
+  const nextMidnight = new Date(
+    Date.UTC(
+      currentTime.getFullYear(),
+      currentTime.getMonth(),
+      currentTime.getDate() + 1,
+      0,
+      0,
+      0
+    )
+  );
+
+  const timeUntilMidnight = nextMidnight.getTime() - currentTime.getTime();
+
+  setTimeout(async () => {
+    try {
+      await seedBookToDB();
+      console.log("Books reset successfully at UTC midnight.");
+    } catch (error) {
+      console.error("Error during midnight reset:", error);
+    }
+
+    setInterval(async () => {
       try {
         await seedBookToDB();
+        console.log("Books reset successfully as part of daily interval.");
       } catch (error) {
         console.error("Scheduled seed failed:", error);
       }
     }, 1000 * 60 * 60 * 24);
-
-    // setTimeout(() => {
-    //   clearInterval(booksReset);
-    //   console.log("Stopped book seeding interval");
-    // }, 10000);
-  } catch (error) {
-    console.error("Initial book seeding failed:", error);
-  }
+  }, timeUntilMidnight);
 };
