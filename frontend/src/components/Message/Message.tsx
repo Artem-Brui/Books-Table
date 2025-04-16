@@ -26,7 +26,7 @@ const Message: FC = () => {
       break;
   }
 
-  if (messageText) {
+  if (messageText.length) {
     setTimeout(() => {
       dispatch({ type: "switchMessageType", payload: null });
     }, 2500);

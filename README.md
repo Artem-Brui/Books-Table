@@ -1,4 +1,4 @@
-# Books-Table
+# Books-Table (Frontend + Backend)
 
 A modern web application for managing and viewing book data.
 
@@ -7,50 +7,47 @@ A modern web application for managing and viewing book data.
 <div align="center">
   <img src="docs/images/main-view.png" alt="Main View" width="400"/>
   <p><em>Main view with book list</em></p>
+
+  <img src="docs/images/add.png" alt="Main View" width="400"/>
+  <p><em>View with book adding</em></p>
+
+  <img src="docs/images/edit.png" alt="Main View" width="400"/> 
+  <p><em>View with book editing</em></p>
+
+  <img src="docs/images/validation.png" alt="Main View" width="400"/>
+  <p><em>View with form validation</em></p>
+
+  <img src="docs/images/activate.png" alt="Main View" width="400"/>
+  <p><em>View with books de../activation</em></p>
+
+  <img src="docs/images/filter.png" alt="Main View" width="400"/>
+  <p><em>View with books filtering</em></p>
+
+  <img src="docs/images/message.png" alt="Main View" width="400"/>
+  <p><em>View with notifications</em></p>
+
 </div>
 
 ## 🌟 Features
 
 ### Frontend
 
-- **Responsive Design**
-
   - Built with Bulma CSS framework and custom styles for a modern look.
   - Fully responsive and mobile-friendly interface.
-
-- **State Management**
-
   - Efficient state handling using reducers for predictable state transitions.
-
-- **API Integration**
-
   - Universal function for handling API requests, supporting GET, POST, PATCH, and DELETE methods.
   - Error handling and loading states for a smooth user experience.
-
-- **User Interface**
-
   - Clean and intuitive design with icon integration for enhanced UX.
-
-- **Deployment**
-  - Deployed on Render for seamless access and scalability.
+  - Deployed on OnRender server for seamless access and scalability.
 
 ### Backend
 
-- **Database**
-
   - Utilizes MongoDB for robust and scalable data storage.
-
-- **API Endpoints**
-
   - RESTful API with universal request handler for efficient data processing.
   - Secure data handling practices to protect user information.
-
-- **Server**
-
   - Built with Node.js and Express.js for fast and reliable server-side operations.
+  - Deployed on OnRender server for reliable backend services.
 
-- **Deployment**
-  - Deployed on Render for reliable backend services.
 
 ## 🛠️ Tech Stack
 
@@ -60,10 +57,10 @@ A modern web application for managing and viewing book data.
 - TypeScript
 - Vite
 - React Router
-- Bulma CSS Framework with custom styles
-- State management using reducers
+- Bulma CSS Framework and a few custom styles
+- State management using Reducer and Dispatch
 - Universal function for API requests
-- Icon Library
+- Icon Library FontAwesome
 
 ### Backend
 
@@ -93,7 +90,7 @@ backend/src/
 
 ## 🎯 Live Demo
 
-Check out the live version at: [https://books-table.onrender.com/dashboard](https://books-table.onrender.com/dashboard)
+Check out the live version at: [https://books-table.onrender.com](https://books-table.onrender.com)
 
 ## 🚀 Getting Started
 
@@ -102,13 +99,13 @@ Check out the live version at: [https://books-table.onrender.com/dashboard](http
 - Node.js (v14 or higher)
 - npm (v6 or higher)
 
-### Installation
+### Frontend Setup
 
 1. Clone the repository:
 
 ```bash
 git clone https://github.com/yourusername/Books-Table.git
-cd Books-Table
+cd Books-Table/frontend
 ```
 
 2. Install dependencies:
@@ -123,11 +120,33 @@ npm install
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`
+The frontend application will be available at `http://localhost:5173`
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+
+```bash
+cd Books-Table/backend
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Start the backend server:
+
+```bash
+npm start
+```
+
+The backend server will be running on the specified port (e.g., `http://localhost:5000`).
 
 ### Building for Production
 
-To create a production build:
+To create a production build for the frontend:
 
 ```bash
 npm run build
