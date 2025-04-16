@@ -4,12 +4,6 @@ type RequestMethod = "GET" | "POST" | "PATCH" | "DELETE";
 
 const BASE_URL = import.meta.env.VITE_SERVER_URL;
 
-function wait(delay: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-}
-
 async function request<T>(
   url: string,
   method: RequestMethod = "GET",
@@ -24,8 +18,7 @@ async function request<T>(
     };
   }
 
-  return wait(200)
-    .then(() => fetch(BASE_URL + url, options))
+  return fetch(BASE_URL + url, options)
     .then((response) => {
       if (!response.ok) {
         throw new Error();
