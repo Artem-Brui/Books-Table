@@ -5,8 +5,6 @@ import { useLocation } from "react-router-dom";
 const PageHeading: FC = () => {
   const { pathname } = useLocation();
 
-  console.log(pathname);
-
   const pageName = pathname.split("/")[1];
 
   const isDashboard = pathname.includes("dashboard");

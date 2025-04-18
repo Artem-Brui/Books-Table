@@ -4,27 +4,38 @@ const getDateToShow = (date: string | null) => {
   }
 
   const convertedDate = new Date(date).toLocaleString("en-US", {
-    dateStyle: "full",
-    timeStyle: "short",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
     hour12: false,
   });
 
-  const datePart = convertedDate
-    .split("at")[0]
-    .split(",")[1]
-    .split(" ")
-    .reverse()
-    .join(" ")
-    .trim();
-  
-  const yearPart = convertedDate
-    .split("at")[0]
-    .split(",")[2]
-    .trim();
-  
-  const timePart = convertedDate.split("at")[1];
+  console.log(convertedDate);
 
-  return `${datePart} ${yearPart} ${timePart}`;
+  const datePart = convertedDate
+    .slice(0, convertedDate.length - 8)
+    .split(",")[0]
+    .split(' ')
+    .reverse()
+    .join(' ')
+
+  const yearPart = convertedDate
+    .slice(0, convertedDate.length - 8)
+    .split(",")[1]
+    .slice(0, 5);
+
+  const timePart = convertedDate
+    .slice(convertedDate.length - 8)
+    .split(":")
+    .slice(0, 2)
+    .join(":");
+
+  const dateConstructor = [datePart, yearPart, timePart];
+
+  return `${dateConstructor.join(' ')}`;
 };
 
 export default getDateToShow;
