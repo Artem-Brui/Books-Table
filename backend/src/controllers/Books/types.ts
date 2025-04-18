@@ -1,8 +1,8 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import BookType from "../../types/BookType";
 import CategoryType from "../../types/CategoryType";
 
-export type Controller = (req: Request, res: Response) => void;
+export type Controller = (req: Request, res: Response, next: NextFunction) => void;
 
 export type ReqType = "GET" | "POST" | "PATCH" | "DELETE";
 
