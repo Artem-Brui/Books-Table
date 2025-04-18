@@ -13,8 +13,6 @@ const getDateToShow = (date: string | null) => {
     hour12: false,
   });
 
-  console.log(convertedDate);
-
   const datePart = convertedDate
     .slice(0, convertedDate.length - 8)
     .split(",")[0]
