@@ -1,5 +1,5 @@
 import { ReqType, RequestHandlerBooks } from "../types";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import handleERORR from "./handleERORR";
 import booksGET from "./booksGET";
 import bookPOST from "./bookPOST";
@@ -9,7 +9,8 @@ import bookDELETE from "./bookDELETE";
 export const handleRequest = async (
   reqType: ReqType,
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction,
 ) => {
   let requestHandler: RequestHandlerBooks = null;
 
@@ -44,6 +45,6 @@ export const handleRequest = async (
 
     res.status(response.status).json(response);
   } catch (error) {
-    handleERORR(res, error);
+    next(error)
   }
 };
